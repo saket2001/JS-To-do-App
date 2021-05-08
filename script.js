@@ -14,6 +14,7 @@ const somedaySection = document.querySelector(".someday-section");
 const AddTaskInput = document.querySelector("#Add-task-input");
 
 let taskArray = [];
+let prevTaskArray = [];
 //functions
 // date
 const now = new Date();
@@ -31,7 +32,7 @@ const compareDate = (d) => {
 };
 
 const saveData = function () {
-  if (taskArray.length > 0) {
+  if (taskArray.length >= 0) {
     const obj = JSON.stringify(taskArray);
     localStorage.setItem("TaskArray", obj);
   }
@@ -56,7 +57,7 @@ const createDiv = function (...arr) {
     const spanText = document.createElement("span");
     spanText.innerHTML = formatDate(arr[1]);
     spanText.classList.add("task_timer");
-    taskText.appendChild(spanText);
+    todoDiv.appendChild(spanText);
     // creating the cut task btn
     const cutBtn = document.createElement("button");
     cutBtn.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
@@ -68,7 +69,6 @@ const createDiv = function (...arr) {
 
     // saving on the local storage
     taskArray.push([arr[0], arr[1]]);
-    console.log(taskArray);
     saveData();
 
     // this section adds acc to date
@@ -84,7 +84,6 @@ const createDiv = function (...arr) {
     AddTaskInput.value = "";
   } else alert(`Please enter a task !!`);
 };
-// localStorage.clear();
 
 // when page loads every time all previous task will load
 const loadTasks = function () {
@@ -94,13 +93,9 @@ const loadTasks = function () {
 
   for (let i = 0; i < value.length; i++) {
     const val = value[i];
-    console.log(val);
+    prevTaskArray.push(val);
     createDiv(val[0], new Date(val[1]));
   }
-  // for (const val of new Array(value)) {
-  //   console.log(val[0][0], val[0][1]);
-  //   createDiv(val[0][0], new Date(val[0][1]));
-  // }
 };
 loadTasks();
 
@@ -127,6 +122,25 @@ function deleteTask(e) {
   // this removes task
   if (item.classList[0] === "endTask") {
     const todo = item.parentElement;
+    const children = item.parentElement.childNodes;
+    const taskText = children[1].textContent;
+    // search the task to be deleted
+    const set = new Set([...taskArray]);
+    console.log(set);
+    set.forEach((cur) => {
+      if (cur[0] === taskText) {
+        console.log(cur);
+        set.delete(cur);
+        alert(`${cur[0]} Task Deleted Successfully !!`);
+      }
+    });
+
+    //
+    taskArray = [];
+    taskArray.push(...set);
+    console.log(taskArray);
+    saveData();
+
     todo.classList.add("fall");
     // this waits for animation to end first
     todo.addEventListener("transitionend", () => {

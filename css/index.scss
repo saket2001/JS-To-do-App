@@ -100,7 +100,7 @@ main {
             }
 
             .task-row {
-                width: 90%;
+                width: 100%;
                 padding: 2% 1%;
                 margin: 1% 0;
                 border-radius: 10px;
@@ -111,9 +111,10 @@ main {
 
                 .small-circle-box,
                 .endTask {
+                    width: 8%;
                     color: white;
-                    padding: 3%;
-                    margin: 1%;
+                    padding: 3% 2%;
+                    margin: 1% 2%;
                     border-radius: 15px;
                     font-size: 20px;
                     outline: none;
@@ -122,7 +123,7 @@ main {
                 }
 
                 .text {
-                    width: 200px;
+                    width: 50%;
                     font-size: 24px;
                     font-weight: 400;
                     padding: 2% 1%;
@@ -131,6 +132,7 @@ main {
                     align-items: flex-start;
 
                     .task_timer {
+                        width: 20%;
                         font-size: 15px;
                         font-weight: 400;
                         padding: 1% 0;
@@ -151,23 +153,115 @@ main {
     opacity: 0;
 }
 
-@media screen and (max-width:600px) {
+// small desktops
+@media screen and (max-width:1100px) {
     nav {
-        @include flex(column, center);
+        @include flex(row, center);
 
         .logo {
             width: 100%;
-            margin: 2% 0;
+            margin: 1% 0;
+            font-size: 28px;
+            @include flex(row, center);
+
+            .main_date {
+                font-size: 19px;
+                margin: 1% 2%;
+            }
         }
 
         form {
             width: 100%;
             margin: 2% 0;
+            justify-content: center;
 
             input[type=text] {
-                font-size: 20px;
+                font-size: 21px;
                 font-weight: 500;
-                width: 70%;
+                width: 80%;
+            }
+
+            .Add-task-btn {
+                padding: 12px 20px;
+            }
+        }
+    }
+
+    main {
+        .app-container {
+            @include flex(row, center);
+
+            .today-section,
+            .tmr-section,
+            .someday-section {
+                width: 80%;
+                height: 100%;
+                margin: 1%;
+                padding: 2%;
+                @include flex(column, center);
+
+
+                .block-heading {
+                    font-size: 30px;
+                }
+
+                .task-row {
+                    width: 80%;
+
+                    .small-circle-box,
+                    .endTask {
+                        width: 10%;
+                        padding: 1% 2%;
+                        margin: 2%;
+                        font-size: 20px;
+                    }
+
+                    .text {
+                        width: 40%;
+                        font-size: 28px;
+                        overflow: auto;
+                    }
+
+                    .task_timer {
+                        font-size: 20px;
+                        width: 20%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// tablets
+@media screen and (max-width:900px) {
+    nav {
+        @include flex(row, center);
+
+        .logo {
+            width: 100%;
+            margin: 1% 0;
+            font-size: 30px;
+            @include flex(row, center);
+
+            .main_date {
+                font-size: 21px;
+                margin: 1% 2%;
+            }
+        }
+
+        form {
+            width: 100%;
+            margin: 2% 0;
+            justify-content: center;
+
+            input[type=text] {
+                font-size: 25px;
+                font-weight: 500;
+                width: 80%;
+            }
+
+            .Add-task-btn {
+                padding: 12px 20px;
             }
         }
     }
@@ -175,6 +269,118 @@ main {
     main {
         .app-container {
             @include flex(column, center);
+
+            .today-section,
+            .tmr-section,
+            .someday-section {
+                width: 100%;
+                height: 100%;
+                margin: 1%;
+                padding: 2% 3%;
+                @include flex(column, center);
+
+
+                .block-heading {
+                    font-size: 30px;
+                }
+
+                .task-row {
+                    width: 80%;
+
+                    .small-circle-box,
+                    .endTask {
+                        width: 10%;
+                        padding: 2%;
+                        margin: 2%;
+                        font-size: 20px;
+                    }
+
+                    .text {
+                        width: 50%;
+                        font-size: 28px;
+                        overflow: auto;
+                    }
+
+                    .task_timer {
+                        font-size: 18px;
+                        width: 20%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// mobile
+@media screen and (max-width:600px) {
+    nav {
+        @include flex(column, center);
+
+        .logo {
+            width: 100%;
+            margin: 2% 0;
+            @include flex(row, center);
+
+            .main_date {
+                font-size: 15px;
+            }
+        }
+
+        form {
+            width: 100%;
+            margin: 2% 0;
+            justify-content: center;
+
+            input[type=text] {
+                font-size: 20px;
+                font-weight: 500;
+                width: 70%;
+            }
+
+            .Add-task-btn {
+                padding: 6px 12px;
+            }
+        }
+    }
+
+    main {
+        .app-container {
+            @include flex(column, center);
+
+            .today-section,
+            .tmr-section,
+            .someday-section {
+                width: 100%;
+                height: 100%;
+                margin: 1%;
+                padding: 2% 3%;
+
+                .block-heading {
+                    font-size: 28px;
+                }
+
+                .task-row {
+                    width: 95%;
+
+                    .small-circle-box,
+                    .endTask {
+                        width: 10%;
+                        padding: 2%;
+                        margin: 2%;
+                        font-size: 16px;
+                    }
+
+                    .text {
+                        width: 40%;
+                        font-size: 22px;
+                        overflow: auto;
+                    }
+
+                    .task_timer {
+                        width: 25%;
+                    }
+                }
+            }
         }
     }
 }
