@@ -131,7 +131,6 @@ function deleteTask(e) {
       if (cur[0] === taskText) {
         console.log(cur);
         set.delete(cur);
-        alert(`${cur[0]} Task Deleted Successfully !!`);
       }
     });
 
