@@ -35,7 +35,7 @@ const compareDate = (d) => {
   // for tmr
   if (date == now.getDate() + 1) return 1;
   // for someday
-  if (month > now.getMonth()) return 2;
+  if (date > now.getDate() + 1 || month > now.getMonth()) return 2;
   // for due
   if (date < now.getDate()) return 3;
 };
@@ -125,7 +125,8 @@ loadTasks();
 AddBtn.addEventListener("click", function (e) {
   e.preventDefault();
   const task = AddTaskInput.value || false;
-  const userDate = prompt(`Enter task completion Date in MM/DD/YYYY format:`);
+  const userDate =
+    prompt(`Enter task completion Date in MM/DD/YYYY format:`) || now;
   const date = new Date(userDate);
   createDiv(task, date);
 });
