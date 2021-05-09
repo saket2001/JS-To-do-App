@@ -6,13 +6,15 @@
 const AddBtn = document.querySelector(".Add-task-btn");
 const taskCompletedBtn = document.querySelector(".small-circle-box");
 const cutTaskBtn = document.querySelector(".endTask");
+const AddTaskInput = document.querySelector("#Add-task-input");
 
 const dateLabel = document.querySelector(".main_date");
 const todaySection = document.querySelector(".today-section");
 const tmrSection = document.querySelector(".tmr-section");
+const dueSection = document.querySelector(".due-section");
 const somedaySection = document.querySelector(".someday-section");
-const AddTaskInput = document.querySelector("#Add-task-input");
 
+/////////////////////////////////
 let taskArray = [];
 let prevTaskArray = [];
 //functions
@@ -26,9 +28,16 @@ dateLabel.textContent = formatDate(now);
 // this compares the dates
 const compareDate = (d) => {
   const date = d.getDate();
+  const month = d.getMonth();
+  // console.log(date);
+  // for today
   if (date == now.getDate()) return 0;
+  // for tmr
   if (date == now.getDate() + 1) return 1;
-  if (date >= now.getDate() + 2) return 2;
+  // for someday
+  if (month > now.getMonth()) return 2;
+  // for due
+  if (date < now.getDate()) return 3;
 };
 
 const saveData = function () {
@@ -65,7 +74,7 @@ const createDiv = function (...arr) {
     todoDiv.appendChild(cutBtn);
 
     todaySection.appendChild(todoDiv);
-    const sectionToAdd = compareDate(new Date(arr[1]));
+    const sectionToAdd = compareDate(arr[1]);
 
     // saving on the local storage
     taskArray.push([arr[0], arr[1]]);
@@ -74,12 +83,24 @@ const createDiv = function (...arr) {
     // this section adds acc to date
     if (sectionToAdd === 0) {
       todaySection.appendChild(todoDiv);
+      todoDiv.style.color = "#1F1F1F";
+      cutBtn.style.color = "#1F1F1F";
+      checkBtn.style.color = "#1F1F1F";
+      todoDiv.style.background = "lightcyan";
     }
     if (sectionToAdd === 1) {
       tmrSection.appendChild(todoDiv);
+      todoDiv.style.background = "rgb(61, 12, 117)";
     }
     if (sectionToAdd === 2) {
       somedaySection.appendChild(todoDiv);
+    }
+    if (sectionToAdd === 3) {
+      dueSection.appendChild(todoDiv);
+      // to make date different color
+      todoDiv.style.color = "white";
+      taskText.style.fontWeight = "bolder";
+      todoDiv.style.background = "rgb(129, 231, 13)";
     }
     AddTaskInput.value = "";
   } else alert(`Please enter a task !!`);
@@ -104,14 +125,14 @@ loadTasks();
 AddBtn.addEventListener("click", function (e) {
   e.preventDefault();
   const task = AddTaskInput.value || false;
-  const userDate =
-    prompt(`Enter task completion Date in MM/DD/YYYY format:`) || now;
+  const userDate = prompt(`Enter task completion Date in MM/DD/YYYY format:`);
   const date = new Date(userDate);
   createDiv(task, date);
 });
 
 // this adds a line through task text
 // this deletes the task from the list
+dueSection.addEventListener("click", deleteTask);
 todaySection.addEventListener("click", deleteTask);
 tmrSection.addEventListener("click", deleteTask);
 somedaySection.addEventListener("click", deleteTask);
@@ -152,3 +173,5 @@ function deleteTask(e) {
     todo.classList.toggle("work-completed");
   }
 }
+
+// localStorage.clear();
