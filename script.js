@@ -124,9 +124,8 @@ loadTasks();
 // this adds the task to the list
 AddBtn.addEventListener("click", function (e) {
   e.preventDefault();
-  const task = AddTaskInput.value || false;
-  const userDate =
-    prompt(`Enter task completion Date in MM/DD/YYYY format:`) || now;
+  const task = AddTaskInput.value || "Empty task";
+  const userDate = document.querySelector("#task-date").value || now;
   const date = new Date(userDate);
   createDiv(task, date);
 });
