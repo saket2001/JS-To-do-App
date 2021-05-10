@@ -103,6 +103,7 @@ const createDiv = function (...arr) {
       todoDiv.style.background = "rgb(129, 231, 13)";
     }
     AddTaskInput.value = "";
+    document.querySelector("#task-date").value = "";
   } else alert(`Please enter a task !!`);
 };
 
