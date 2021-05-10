@@ -675,10 +675,10 @@ main .app-container .someday-section .task-row .text .task_timer {
   }
   nav form {
     width: 100%;
-    margin: 2% 0;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
+    margin: 1% 0;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   nav form input[type=text] {
     font-size: 18px;
